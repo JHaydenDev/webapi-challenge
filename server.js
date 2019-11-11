@@ -4,8 +4,8 @@ const projectRouter = require("./data/Routers/projectRouter.js");
 const actionRouter = require("./data/Routers/actionRouter.js");
 server.use(express.json());
 server.use(logger);
-// server.use("/actions", actionRouter);
-// server.use("/projects", projectRouter);
+server.use("/actions", actionRouter);
+server.use("/projects", projectRouter);
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Lets get this thing started!" });
 });
