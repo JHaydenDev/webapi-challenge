@@ -11,8 +11,8 @@ server.use("/actions", actionRouter);
 server.use("/projects", projectRouter);
 
 server.get("/", (req, res) => {
+
   res.status(200).json({ message: "Lets git this thing started!" });
-});
 
 function logger(req, res, next) {
   console.log(

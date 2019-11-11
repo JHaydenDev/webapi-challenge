@@ -1,11 +1,13 @@
 const express = require("express");
 
-const Project = require("../helpers/projectModel");
+const db = require("../helpers/projectModel.js");
 
-const router = express.Router();
+const server = express.Router();
+
+server.use(express.json());
 
 //Get request.
-router.get("/", (req, res) => {
+server.get("/", (req, res) => {
   Project.get()
     .then(project => res.status(200).json(project))
     .catch(err =>
@@ -14,7 +16,7 @@ router.get("/", (req, res) => {
 });
 
 //Get by ID
-router.get("/:id", validateProjectId, (req, res) => {
+server.get("/:id", validateProjectId, (req, res) => {
   res.status(200).json(req.action);
 });
 
@@ -72,4 +74,4 @@ function validateProjectId(req, res, next) {
     });
 }
 
-module.exports = router;
+module.exports = server;
