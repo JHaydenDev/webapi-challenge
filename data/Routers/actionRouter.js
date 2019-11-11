@@ -1,9 +1,13 @@
 const express = require("express");
 
-const Action = require("../helpers/actionModel");
+const db = require("../helpers/actionModel.js");
+
+const server = express.Router();
+
+server.use(express.json());
 
 //Get request
-router.get("/", (req, res) => {
+server.get("/", (req, res) => {
   Action.get()
     .then(action => {
       res.status(200).json(action);
@@ -14,13 +18,13 @@ router.get("/", (req, res) => {
 });
 
 //Get by ID with validation middleware
-router.get("/:id", validateUserId, (req, res) => {
+server.get("/:id", validateActionId, (req, res) => {
   const id = req.params.id;
   res.status(200).json(req.user);
 });
 
 //Post with validation.
-router.post("/:id", validateUserId, (req, res) => {
+server.post("/:id", validateActionId, (req, res) => {
   const post = { ...req.body, project_id: req.user.project_id };
 
   Action.insert(post)
@@ -31,7 +35,7 @@ router.post("/:id", validateUserId, (req, res) => {
 });
 
 //Put with validation
-router.put("/:id", validateActionId, (req, res) => {
+server.put("/:id", validateActionId, (req, res) => {
   const postBody = { ...req.body, project_id: req.action.project_id };
   const id = req.params.id;
   console.log(postBody);
@@ -43,7 +47,7 @@ router.put("/:id", validateActionId, (req, res) => {
 });
 
 //Delete with validation
-router.delete("/:id", validateActionId, (req, res) => {
+server.delete("/:id", validateActionId, (req, res) => {
   const id = req.params.id;
   Action.remove(id)
     .then(action => res.status(200).json({ message: "YOU DELETED IT!" }))
@@ -51,7 +55,7 @@ router.delete("/:id", validateActionId, (req, res) => {
 });
 
 //ID Validation middleware
-function validateUserId(req, res, next) {
+function validateActionId(req, res, next) {
   const id = req.params.id;
   Action.get(id)
     .then(user => {
@@ -69,5 +73,5 @@ function validateUserId(req, res, next) {
     });
 }
 
-const router = express.Router();
-module.exports = router;
+
+module.exports = server;

@@ -19,7 +19,7 @@ router.get("/:id", validateProjectId, (req, res) => {
 });
 
 //Post request
-server.post("/", (req, res) => {
+router.post("/", (req, res) => {
   const body = req.body;
   db.insert(body)
     .then(project => {
@@ -31,7 +31,7 @@ server.post("/", (req, res) => {
 });
 
 //DELETE
-server.delete("/:id", validateProjectId, (req, res) => {
+router.delete("/:id", validateProjectId, (req, res) => {
   const id = req.params.id;
   db.remove(id)
     .then(project => {
@@ -44,7 +44,7 @@ server.delete("/:id", validateProjectId, (req, res) => {
 });
 
 //PUT
-server.put("/:id", validateProjectId, (req, res) => {
+router.put("/:id", validateProjectId, (req, res) => {
   const id = req.params.id;
   const body = req.body;
   db.update(id, body)
@@ -56,7 +56,7 @@ server.put("/:id", validateProjectId, (req, res) => {
     });
 });
 
-//validateID
+//Validate ID Middleware
 function validateProjectId(req, res, next) {
   let id = req.params.id;
   db.get(id)
