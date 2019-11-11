@@ -19,8 +19,16 @@ router.get("/:id", validateUserId, (req, res) => {
   res.status(200).json(req.user);
 });
 
-const router = express.Router();
-module.exports = router;
+//Post with validation.
+router.post("/:id", validateUserId, (req, res) => {
+  const post = { ...req.body, project_id: req.user.project_id };
+
+  Action.insert(post)
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(err => res.status(500).json({ message: "ERROR WITH ACTION!" }));
+});
 
 //ID Validation middleware
 function validateUserId(req, res, next) {
@@ -40,3 +48,6 @@ function validateUserId(req, res, next) {
       res.status(500).json({ message: "THIS ID IS NOT A THING!" });
     });
 }
+
+const router = express.Router();
+module.exports = router;
