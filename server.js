@@ -11,7 +11,7 @@ server.use("/actions", actionRouter);
 server.use("/projects", projectRouter);
 
 server.get("/", (req, res) => {
-  res.status(200).json({ message: "happy halloween" });
+  res.status(200).json({ message: "Yay everthing is working!" });
 });
 
 function logger(req, res, next) {
