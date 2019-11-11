@@ -21,7 +21,7 @@ server.get("/:id", validateProjectId, (req, res) => {
 });
 
 //Post request
-router.post("/", (req, res) => {
+server.post("/", (req, res) => {
   const body = req.body;
   db.insert(body)
     .then(project => {
@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
 });
 
 //DELETE
-router.delete("/:id", validateProjectId, (req, res) => {
+server.delete("/:id", validateProjectId, (req, res) => {
   const id = req.params.id;
   db.remove(id)
     .then(project => {
@@ -46,7 +46,7 @@ router.delete("/:id", validateProjectId, (req, res) => {
 });
 
 //PUT
-router.put("/:id", validateProjectId, (req, res) => {
+server.put("/:id", validateProjectId, (req, res) => {
   const id = req.params.id;
   const body = req.body;
   db.update(id, body)
