@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Action = require("../data/helpers/actionModel");
+const Action = require("../helpers/actionModel");
 
 //Get request
 router.get("/", (req, res) => {
